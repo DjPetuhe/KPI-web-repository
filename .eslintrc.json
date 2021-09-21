@@ -10,6 +10,5 @@
     "sourceType": "module"
   },
   "rules": {
-//    "cognitive-complexity": ["error", 15]
   }
 }
