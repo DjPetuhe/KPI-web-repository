@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install",
-    "lint:fix": "eslint . --fix --color"
+    "lint": "eslint eslint .--no-error-on-unmatched-pattern'**/*.js'",
+    "linr:fix": "eslint **/*.js --fix"
   },
   "author": "",
   "license": "ISC",
