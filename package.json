@@ -6,8 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install",
-    "lint": "eslint eslint .--no-error-on-unmatched-pattern'**/*.js'",
-    "linr:fix": "eslint **/*.js --fix"
+    "lint": "eslint .--no-error-on-unmatched-pattern'**/*.js'",
+    "lintcss": "stylelint **/*.css",
+    "prettiercheck": "prettier . --check"
   },
   "author": "",
   "license": "ISC",
@@ -23,8 +24,17 @@
     "stylelint-config-standard": "^22.0.0"
   },
   "lint-staged": {
-    "*.js": "eslint --cache --fix",
-    "*.css": "stylelint --fix",
-    "*.{js,css,md}": "prettier --write"
+    "*.js": [
+    "npm run lint",
+    "git add "
+  ],
+    "*.css": [
+      "npm run lintcss",
+      "git add "
+    ],
+    "*html": [
+      "npm run prettiercheck",
+      "git add "
+    ]
   }
 }
