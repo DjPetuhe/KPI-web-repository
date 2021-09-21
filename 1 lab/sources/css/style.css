@@ -1,0 +1,155 @@
+:root {
+  --default-font-size: 1.5vw;
+  --one-font-size: 2vw;
+  --one-six-background: lightblue;
+  --two-background: lightgreen;
+  --three-four-background: lightsalmon;
+  --x-y-five-background: white;
+  --x-y-borders: 2px solid;
+  --x-y-text-align: right;
+  --default-text-aling: left;
+  --two-text-align: right;
+  --three-text-align: center;
+  --overflow-value: auto;
+}
+
+body {
+  margin: 0;
+  font-family: "Times New Roman", Times, serif;
+  font-size: var(--default-font-size);
+  text-align: var(--default-text-aling);
+}
+
+.one {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 165px;
+  width: 80%;
+  background: var(--one-six-background);
+  overflow: var(--overflow-value);
+}
+
+.oneText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 0 -50% 0 0;
+  transform: translate(-20%, -50%);
+  font-size: var(--one-font-size);
+}
+
+.two {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 80%;
+  height: 1000px;
+  background: var(--two-background);
+  overflow: var(--overflow-value);
+}
+
+.twoText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 0 -50% 0 0;
+  transform: translate(-50%, -50%);
+  text-align: var(--two-text-align);
+}
+
+.three {
+  position: absolute;
+  left: 0;
+  top: 165px;
+  height: 835px;
+  width: 20%;
+  background: var(--three-four-background);
+  overflow: var(--overflow-value);
+}
+
+.threeText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 0 -50% 0 0;
+  transform: translate(-50%, -50%);
+  text-align: var(--three-text-align);
+}
+
+.four {
+  position: absolute;
+  height: 110px;
+  top: 165px;
+  left: 20%;
+  width: 60%;
+  background: var(--three-four-background);
+  overflow: var(--overflow-value);
+}
+
+.five {
+  position: absolute;
+  left: 20%;
+  right: 20%;
+  top: 275px;
+  height: 725px;
+  text-align: center;
+  background: var(--x-y-five-background);
+  overflow: var(--overflow-value);
+}
+
+.five img {
+  position: absolute;
+  margin: auto;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.six {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 1000px;
+  height: 165px;
+  background: var(--one-six-background);
+  overflow: var(--overflow-value);
+}
+
+.x {
+  position: absolute;
+  top: 40px;
+  left: 5%;
+  width: 25%;
+  height: 75px;
+  border-top: var(--x-y-borders);
+  border-bottom: var(--x-y-borders);
+  border-right: var(--x-y-borders);
+  border-left: var(--x-y-borders);
+  background: var(--x-y-five-background);
+}
+
+.y {
+  position: absolute;
+  top: 1050px;
+  right: 5%;
+  width: 25%;
+  height: 75px;
+  border-top: var(--x-y-borders);
+  border-bottom: var(--x-y-borders);
+  border-right: var(--x-y-borders);
+  border-left: var(--x-y-borders);
+  background: var(--x-y-five-background);
+}
+
+.xyText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 0 -50% 0 0;
+  transform: translate(-50%, -50%);
+  text-align: var(--x-y-text-align);
+}

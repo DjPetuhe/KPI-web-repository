@@ -1,0 +1,15 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "plugins": ["sonarjs", "@nodeart"],
+  "extends": ["eslint:recommended", "plugin:sonarjs/recommended", "prettier", "plugin:@nodeart/base"],
+  "parserOptions": {
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "rules": {
+//    "cognitive-complexity": ["error", 15]
+  }
+}
