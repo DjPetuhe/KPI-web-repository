@@ -4,11 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install",
-    "lint": "eslint . --no-error-on-unmatched-pattern",
-    "lintcss": "stylelint **/*.css",
-    "prettiercheck": "prettier . --check"
+    "lint": "eslint **/*.js --no-error-on-unmatched-pattern --ignore-path .gitignore",
+    "lint:fix": "eslint **/*.js --fix --ignore-path .gitignore",
+    "stylelint": "stylelint **/*.css --ignore-path .gitignore",
+    "stylelint:fix": "stylelint **/*.css --fix --ignore-path .gitignore",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write ."
   },
   "author": "",
   "license": "ISC",
@@ -24,17 +26,15 @@
     "stylelint-config-standard": "^22.0.0"
   },
   "lint-staged": {
-    "*.js": [
-      "npm run lint",
-      "git add "
+    "*.{js,ts,html}": [
+      "prettier --check ."
+    ],
+    "*.{js,ts}": [
+      "eslint **/*.js"
     ],
     "*.css": [
-      "npm run lintcss",
-      "git add "
+      "stylelint **/*.css"
     ],
-    "*html": [
-      "npm run prettiercheck",
-      "git add "
-    ]
+    "*.js": "eslint --cache --fix"
   }
 }
