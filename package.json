@@ -9,8 +9,8 @@
     "lint:fix": "eslint **/*.js --fix --ignore-path .gitignore",
     "stylelint": "stylelint **/*.css --ignore-path .gitignore",
     "stylelint:fix": "stylelint **/*.css --fix --ignore-path .gitignore",
-    "format": "prettier --check .",
-    "format:fix": "prettier --write ."
+    "format": "prettier --check . --ignore-path .gitignore",
+    "format:fix": "prettier --write . --ignore-path .gitignore"
   },
   "author": "",
   "license": "ISC",
