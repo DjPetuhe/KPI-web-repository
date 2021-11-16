@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Form</title>
+  </head>
+  <body>
+    <div class="main-block">
+      <header>
+        <h1>Form sender</h1>
+      </header>
+      <main>
+        <div class="form-block">
+          <label for="form-name">Name:</label>
+          <input id="form-name" type="text" name="name" />
+        </div>
+        <div class="form-block">
+          <label for="form-email">Email:</label>
+          <input id="form-email" name="email" />
+        </div>
+        <div class="form-block">
+          <label>Temperament:</label>
+          <div class="options-radio">
+            <input
+              id="form-choleric"
+              checked
+              type="radio"
+              value="choleric"
+              name="temperament"
+            />
+            <label for="form-choleric">choleric</label>
+          </div>
+          <div class="options-radio">
+            <input
+              id="form-sanguine"
+              type="radio"
+              value="sanguine"
+              name="temperament"
+            />
+            <label for="form-sanguine">sanguine</label>
+          </div>
+          <div class="options-radio">
+            <input
+              id="form-melancholic"
+              type="radio"
+              value="melancholic"
+              name="temperament"
+            />
+            <label for="form-melancholic">melancholic</label>
+          </div>
+          <div class="options-radio">
+            <input
+              id="form-phlegmatic"
+              type="radio"
+              value="phlegmatic"
+              name="temperament"
+            />
+            <label for="form-phlegmatic">phlegmatic</label>
+          </div>
+        </div>
+        <div class="form-block">
+          <label>Personality trait:</label>
+          <div class="options-radio">
+            <input
+              id="form-extraversion"
+              checked
+              type="radio"
+              value="extraversion"
+              name="personality-trait"
+            />
+            <label for="form-extraversion">extraversion</label>
+          </div>
+          <div class="options-radio">
+            <input
+              id="form-introversion"
+              type="radio"
+              value="introversion"
+              name="personality-trait"
+            />
+            <label for="form-introversion">introversion</label>
+          </div>
+        </div>
+        <div class="form-block">
+          <label for="form-age">Age:</label>
+          <select id="form-age" name="age">
+            <option value="up to 12">up to 12 years</option>
+            <option value="from 12 to 16">12-15 years</option>
+            <option value="from 16 to 20">16-20 years</option>
+            <option value="from 20 to 35">21-30 years</option>
+            <option value="from 30 to 50">31-50 years</option>
+            <option value="from 30 to 50">51-70 years</option>
+            <option value="70 and older">70+ years</option>
+          </select>
+        </div>
+        <div class="form-block">
+          <label for="form-problem">Describe your problem:</label>
+          <textarea name="problem" id="form-problem"></textarea>
+        </div>
+        <div class="form-block">
+          <label>Attach a photo:</label>
+          <div class="photo-input">
+            <input
+              accept=".jpg, .png, .gif"
+              type="file"
+              name="image"
+              class="file-input"
+            />
+            <div class="image-button">Choose</div>
+          </div>
+          <div class="photo-preview"></div>
+        </div>
+        <button type="submit">Send!</button>
+      </main>
+      <footer>Second lab work by Valid Hernuf</footer>
+    </div>
+  </body>
+</html>
