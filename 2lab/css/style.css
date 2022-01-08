@@ -42,10 +42,34 @@ footer {
 main {
   display: flex;
   flex: 13;
+  background-color: #dcdcdc;
+}
+
+.form_body {
+  display: flex;
+  flex: 1;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  background-color: #dcdcdc;
+}
+
+.form_body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(51, 51, 51, 0.9) url("../imgs/loadingimg.gif") center / 50px
+    no-repeat;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s ease 0s;
+}
+
+.form_body._sending::after {
+  opacity: 1;
+  visibility: visible;
 }
 
 .form-block {
@@ -63,7 +87,7 @@ main {
   border-bottom: 2px solid green;
 }
 
-.form-block > input {
+.form_input {
   height: 25px;
   border-radius: 5px;
   padding: 0 10px;
@@ -80,6 +104,10 @@ main {
   border-radius: 5px;
   padding: 4px 10px;
   resize: vertical;
+}
+
+.form-block._error {
+  box-shadow: 0 0 15px red;
 }
 
 .options-radio {
@@ -129,7 +157,8 @@ main {
 
 .photo-preview {
   display: inline-flex;
-  max-width: 100px;
+  max-height: 150px;
+  object-fit: contain;
   padding-top: 10px;
 }
 

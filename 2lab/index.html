@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Form</title>
+  </head>
+  <body>
+    <div class="main-block">
+      <header>
+        <h1>Form sender</h1>
+      </header>
+      <main>
+        <form id="form" class="form_body">
+          <div class="form-block">
+            <label for="form-name">Name:</label>
+            <input
+              id="form-name"
+              type="text"
+              name="name"
+              class="form_input _req"
+            />
+          </div>
+          <div class="form-block">
+            <label for="form-email">Email:</label>
+            <input
+              id="form-email"
+              name="email"
+              class="form_input _req _email"
+            />
+          </div>
+          <div class="form-block">
+            <label>Temperament:</label>
+            <div class="options-radio">
+              <input
+                id="form-choleric"
+                checked
+                type="radio"
+                value="choleric"
+                name="temperament"
+              />
+              <label for="form-choleric">choleric</label>
+            </div>
+            <div class="options-radio">
+              <input
+                id="form-sanguine"
+                type="radio"
+                value="sanguine"
+                name="temperament"
+              />
+              <label for="form-sanguine">sanguine</label>
+            </div>
+            <div class="options-radio">
+              <input
+                id="form-melancholic"
+                type="radio"
+                value="melancholic"
+                name="temperament"
+              />
+              <label for="form-melancholic">melancholic</label>
+            </div>
+            <div class="options-radio">
+              <input
+                id="form-phlegmatic"
+                type="radio"
+                value="phlegmatic"
+                name="temperament"
+              />
+              <label for="form-phlegmatic">phlegmatic</label>
+            </div>
+          </div>
+          <div class="form-block">
+            <label>Personality trait:</label>
+            <div class="options-radio">
+              <input
+                id="form-extraversion"
+                checked
+                type="radio"
+                value="extraversion"
+                name="personality-trait"
+              />
+              <label for="form-extraversion">extraversion</label>
+            </div>
+            <div class="options-radio">
+              <input
+                id="form-introversion"
+                type="radio"
+                value="introversion"
+                name="personality-trait"
+              />
+              <label for="form-introversion">introversion</label>
+            </div>
+          </div>
+          <div class="form-block">
+            <label for="form-age">Age:</label>
+            <select id="form-age" name="age">
+              <option value="up to 12">up to 12 years</option>
+              <option value="from 12 to 16">12-15 years</option>
+              <option value="from 16 to 20">16-20 years</option>
+              <option value="from 20 to 35">21-30 years</option>
+              <option value="from 30 to 50">31-50 years</option>
+              <option value="from 30 to 50">51-70 years</option>
+              <option value="70 and older">70+ years</option>
+            </select>
+          </div>
+          <div class="form-block">
+            <label for="form-problem">Describe your problem:</label>
+            <textarea
+              name="problem"
+              id="form-problem"
+              class="text_input _req"
+            ></textarea>
+          </div>
+          <div class="form-block">
+            <label>Attach a photo:</label>
+            <div class="photo-input">
+              <input
+                id="formImage"
+                accept=".jpg, .png, .gif"
+                type="file"
+                name="image"
+                class="file-input"
+              />
+              <div class="image-button">Choose</div>
+            </div>
+            <div id="formPreview" class="photo-preview"></div>
+          </div>
+          <button type="submit">Send!</button>
+        </form>
+      </main>
+      <footer>Second lab work by Valid Hernuf</footer>
+    </div>
+    <script>
+      "use strict";
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("form");
+        let formReq = document.querySelectorAll("._req");
+        form.addEventListener("submit", formSend);
+        async function formSend(e) {
+          e.preventDefault();
+          let error = formValidate(form);
+          // console.log(form);
+          // let formData = new FormData(form);
+          // formData.append("image", formImage.files[0]);
+          // console.log(formData);
+          // console.log(form);
+          let formData = {};
+          Array.from(form.elements)
+            .filter((el) => el.tagName !== "BUTTON")
+            .forEach((element) => (formData[element.name] = element.value));
+          if (error === 0) {
+            form.classList.add("_sending");
+            let response = await fetch("api/sendmail", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(formData),
+            });
+            if (response.ok) {
+              let result = await response.json();
+              alert(result.message);
+              formPreview.innerHTML = "";
+              form.reset();
+            } else {
+              alert("Sending error!");
+            }
+            form.classList.remove("_sending");
+          } else {
+            alert("Required fields are empty!");
+          }
+        }
+        function formValidate(e) {
+          let error = 0;
+          let formReq = document.querySelectorAll("._req");
+          for (let index = 0; index < formReq.length; index++) {
+            const input = formReq[index];
+            formRemoveError(input);
+            if (input.classList.contains("_email")) {
+              if (emailTest(input)) {
+                formAddError(input);
+                error++;
+              }
+            } else if (input.value === "") {
+              formAddError(input);
+              error++;
+            }
+          }
+          return error;
+        }
+        function formAddError(input) {
+          input.parentElement.classList.add("_error");
+          input.classList.add("_error");
+        }
+        function formRemoveError(input) {
+          input.parentElement.classList.remove("_error");
+          input.classList.add("_error");
+        }
+        function emailTest(input) {
+          return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/.test(
+            input.value
+          );
+        }
+        const formImage = document.getElementById("formImage");
+        const formPreview = document.getElementById("formPreview");
+        formImage.addEventListener("change", () => {
+          uploadFile(formImage.files[0]);
+        });
+        function uploadFile(file) {
+          if (!["image/jpeg", "image/png", "image/gif"].includes(file.type)) {
+            alert("Only images allowed!");
+            formImage.value = "";
+            return;
+          }
+          if (file.size > 2 * 1024 * 1024) {
+            alert("File must be less then 2 mb.");
+            return;
+          }
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            formPreview.innerHTML = `<img src="${e.target.result}" alt="Photo" class="photo-preview">`;
+          };
+          reader.onerror = function (e) {
+            alert("Error!");
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    </script>
+  </body>
+</html>
