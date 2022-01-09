@@ -9,4 +9,4 @@ jobs:
         with:
           node-version: "14"
           cache: "npm"
-      - run: npm ci && npm run stylelint && npm run lint && npm run format
+      - run: npm ci && npm run stylelint && npm run lint
