@@ -82,6 +82,25 @@ main {
   background-color: #a8cdb3;
 }
 
+.message-block {
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  width: 50%;
+  background-color: #a8cdb3;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s ease 0s;
+}
+
+.message-block._info {
+  margin: 10px;
+  padding: 10px 30px 10px 30px;
+  opacity: 1;
+  visibility: visible;
+}
+
 .form-block > label {
   margin-bottom: 5px;
   border-bottom: 2px solid green;
@@ -129,41 +148,6 @@ main {
 
 .photo-input {
   position: relative;
-}
-
-.file-input {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  font-size: 0;
-  cursor: pointer;
-}
-
-.image-button {
-  display: inline-flex;
-  min-height: 40px;
-  border-radius: 20px;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  background-color: #4a8c5e;
-  font-size: 20px;
-  font-weight: 700;
-  color: white;
-}
-
-.photo-preview {
-  display: inline-flex;
-  max-height: 150px;
-  object-fit: contain;
-  padding-top: 10px;
-}
-
-.photo-preview img {
-  max-width: 100%;
 }
 
 main button {

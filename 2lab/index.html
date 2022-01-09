@@ -112,20 +112,7 @@
               class="text_input _req"
             ></textarea>
           </div>
-          <div class="form-block">
-            <label>Attach a photo:</label>
-            <div class="photo-input">
-              <input
-                id="formImage"
-                accept=".jpg, .png, .gif"
-                type="file"
-                name="image"
-                class="file-input"
-              />
-              <div class="image-button">Choose</div>
-            </div>
-            <div id="formPreview" class="photo-preview"></div>
-          </div>
+          <div class="message-block" id="message"></div>
           <button type="submit">Send!</button>
         </form>
       </main>
@@ -139,15 +126,16 @@
         form.addEventListener("submit", formSend);
         async function formSend(e) {
           e.preventDefault();
+          let message = document.getElementById("message");
+          message.classList.add("_info");
           let error = formValidate(form);
-          // console.log(form);
-          // let formData = new FormData(form);
-          // formData.append("image", formImage.files[0]);
-          // console.log(formData);
-          // console.log(form);
           let formData = {};
           Array.from(form.elements)
-            .filter((el) => el.tagName !== "BUTTON")
+            .filter(
+              (el) =>
+                el.tagName !== "BUTTON" &&
+                !(el.type === "radio" && el.checked === false)
+            )
             .forEach((element) => (formData[element.name] = element.value));
           if (error === 0) {
             form.classList.add("_sending");
@@ -160,15 +148,18 @@
             });
             if (response.ok) {
               let result = await response.json();
-              alert(result.message);
-              formPreview.innerHTML = "";
+              message.innerText = "Form has been send!";
               form.reset();
+            } else if (response.status === 429) {
+              message.innerText = "Too many requests!";
+            } else if (response.status === 420) {
+              message.innerText = "Data didnt pass!";
             } else {
-              alert("Sending error!");
+              message.innerText = "Sending   error!";
             }
             form.classList.remove("_sending");
           } else {
-            alert("Required fields are empty!");
+            message.innerText = "Required fields are empty!";
           }
         }
         function formValidate(e) {
@@ -201,30 +192,6 @@
           return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/.test(
             input.value
           );
-        }
-        const formImage = document.getElementById("formImage");
-        const formPreview = document.getElementById("formPreview");
-        formImage.addEventListener("change", () => {
-          uploadFile(formImage.files[0]);
-        });
-        function uploadFile(file) {
-          if (!["image/jpeg", "image/png", "image/gif"].includes(file.type)) {
-            alert("Only images allowed!");
-            formImage.value = "";
-            return;
-          }
-          if (file.size > 2 * 1024 * 1024) {
-            alert("File must be less then 2 mb.");
-            return;
-          }
-          var reader = new FileReader();
-          reader.onload = function (e) {
-            formPreview.innerHTML = `<img src="${e.target.result}" alt="Photo" class="photo-preview">`;
-          };
-          reader.onerror = function (e) {
-            alert("Error!");
-          };
-          reader.readAsDataURL(file);
         }
       });
     </script>
