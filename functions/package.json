@@ -2,15 +2,18 @@
   "name": "functions",
   "description": "Cloud Functions for Firebase",
   "scripts": {
-    "lint": "eslint .",
+    "lint": "eslint **/*.js --no-error-on-unmatched-pattern --ignore-path .gitignore",
+    "lint:fix": "eslint **/*.js --fix --ignore-path .gitignore",
     "serve": "firebase emulators:start --only functions",
     "shell": "firebase functions:shell",
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
-    "logs": "firebase functions:log"
+    "logs": "firebase functions:log",
+    "format": "prettier --check . --ignore-path .gitignore",
+    "format:fix": "prettier --write . --ignore-path .gitignore"
   },
   "engines": {
-    "node": "14"
+    "node": "16"
   },
   "main": "index.js",
   "dependencies": {
