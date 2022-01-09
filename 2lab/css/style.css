@@ -1,3 +1,20 @@
+:root {
+  --default-font: helvetica, sans-serif;
+  --default-font-size: 20px;
+  --html-color: black;
+  --header-button-text-color: white;
+  --header-footer-background-color: #6dae81;
+  --main-background-color: #dcdcdc;
+  --form-block-background-color: #a8cdb3;
+  --button-color: #4a8c5e;
+  --button-hover-color: #3f7551;
+  --button-box-shadow: 0 1px 0 #192f20;
+  --error-box-shadow: 0 0 15px red;
+  --form-block-label-border: 2px solid green;
+  --block-border-radius: 10px;
+  --inputs-border-radius: 5px;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -5,10 +22,10 @@
 
 body,
 html {
-  font-family: Helvetica, sans-serif;
-  color: black;
+  font-family: var(--default-font);
+  color: var(--html-color);
   height: 100%;
-  font-size: 20px;
+  font-size: var(--default-font-size);
   word-break: break-all;
 }
 
@@ -24,9 +41,9 @@ header {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: #6dae81;
+  background-color: var(--header-footer-background-color);
   min-height: 60px;
-  color: white;
+  color: var(--header-button-text-color);
 }
 
 footer {
@@ -35,17 +52,17 @@ footer {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: #6dae81;
+  background-color: var(--header-footer-background-color);
   min-height: 60px;
 }
 
 main {
   display: flex;
   flex: 13;
-  background-color: #dcdcdc;
+  background-color: var(--main-background-color);
 }
 
-.form_body {
+form {
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -53,7 +70,7 @@ main {
   align-items: center;
 }
 
-.form_body::after {
+form::after {
   content: "";
   position: fixed;
   top: 0;
@@ -67,7 +84,7 @@ main {
   transition: all 0.5s ease 0s;
 }
 
-.form_body._sending::after {
+form._sending::after {
   opacity: 1;
   visibility: visible;
 }
@@ -75,20 +92,20 @@ main {
 .form-block {
   margin: 10px;
   padding: 10px 30px 10px 30px;
-  border-radius: 10px;
+  border-radius: var(--block-border-radius);
   display: flex;
   flex-direction: column;
   width: 50%;
-  background-color: #a8cdb3;
+  background-color: var(--form-block-background-color);
 }
 
 .message-block {
-  border-radius: 10px;
+  border-radius: var(--block-border-radius);
   display: flex;
   flex-direction: column;
   align-content: center;
   width: 50%;
-  background-color: #a8cdb3;
+  background-color: var(--form-block-background-color);
   opacity: 0;
   visibility: hidden;
   transition: all 0.5s ease 0s;
@@ -103,30 +120,30 @@ main {
 
 .form-block > label {
   margin-bottom: 5px;
-  border-bottom: 2px solid green;
+  border-bottom: var(--form-block-label-border);
 }
 
 .form_input {
   height: 25px;
-  border-radius: 5px;
+  border-radius: var(--inputs-border-radius);
   padding: 0 10px;
 }
 
 .form-block > select {
-  border-radius: 5px;
+  border-radius: var(--inputs-border-radius);
   height: 30px;
   cursor: pointer;
 }
 
 .form-block > textarea {
   min-height: 100px;
-  border-radius: 5px;
+  border-radius: var(--inputs-border-radius);
   padding: 4px 10px;
   resize: vertical;
 }
 
 .form-block._error {
-  box-shadow: 0 0 15px red;
+  box-shadow: var(--error-box-shadow);
 }
 
 .options-radio {
@@ -157,16 +174,16 @@ main button {
   justify-content: center;
   align-items: center;
   min-height: 50px;
-  border-radius: 5px;
-  background-color: #4a8c5e;
+  border-radius: var(--inputs-border-radius);
+  background-color: var(--button-color);
   font-weight: 700;
-  font-size: 20px;
+  font-size: var(--default-font-size);
   cursor: pointer;
-  box-shadow: 0 1px 0 #192f20;
+  box-shadow: var(--button-box-shadow);
   transition: background-color 0.5s ease 0s;
-  color: white;
+  color: var(--header-button-text-color);
 }
 
 main button:hover {
-  background-color: #3f7551;
+  background-color: var(--button-hover-color);
 }

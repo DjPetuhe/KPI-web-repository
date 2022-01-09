@@ -12,61 +12,31 @@
         <h1>Form sender</h1>
       </header>
       <main>
-        <form id="form" class="form_body">
+        <form>
           <div class="form-block">
             <label for="form-name">Name:</label>
-            <input
-              id="form-name"
-              type="text"
-              name="name"
-              class="form_input _req"
-            />
+            <input type="text" name="name" class="form_input _req" />
           </div>
           <div class="form-block">
             <label for="form-email">Email:</label>
-            <input
-              id="form-email"
-              name="email"
-              class="form_input _req _email"
-            />
+            <input name="email" class="form_input _req _email" />
           </div>
           <div class="form-block">
             <label>Temperament:</label>
             <div class="options-radio">
-              <input
-                id="form-choleric"
-                checked
-                type="radio"
-                value="choleric"
-                name="temperament"
-              />
+              <input checked type="radio" value="choleric" name="temperament" />
               <label for="form-choleric">choleric</label>
             </div>
             <div class="options-radio">
-              <input
-                id="form-sanguine"
-                type="radio"
-                value="sanguine"
-                name="temperament"
-              />
+              <input type="radio" value="sanguine" name="temperament" />
               <label for="form-sanguine">sanguine</label>
             </div>
             <div class="options-radio">
-              <input
-                id="form-melancholic"
-                type="radio"
-                value="melancholic"
-                name="temperament"
-              />
+              <input type="radio" value="melancholic" name="temperament" />
               <label for="form-melancholic">melancholic</label>
             </div>
             <div class="options-radio">
-              <input
-                id="form-phlegmatic"
-                type="radio"
-                value="phlegmatic"
-                name="temperament"
-              />
+              <input type="radio" value="phlegmatic" name="temperament" />
               <label for="form-phlegmatic">phlegmatic</label>
             </div>
           </div>
@@ -74,7 +44,6 @@
             <label>Personality trait:</label>
             <div class="options-radio">
               <input
-                id="form-extraversion"
                 checked
                 type="radio"
                 value="extraversion"
@@ -84,7 +53,6 @@
             </div>
             <div class="options-radio">
               <input
-                id="form-introversion"
                 type="radio"
                 value="introversion"
                 name="personality-trait"
@@ -94,7 +62,7 @@
           </div>
           <div class="form-block">
             <label for="form-age">Age:</label>
-            <select id="form-age" name="age">
+            <select name="age">
               <option value="up to 12">up to 12 years</option>
               <option value="from 12 to 16">12-15 years</option>
               <option value="from 16 to 20">16-20 years</option>
@@ -106,13 +74,9 @@
           </div>
           <div class="form-block">
             <label for="form-problem">Describe your problem:</label>
-            <textarea
-              name="problem"
-              id="form-problem"
-              class="text_input _req"
-            ></textarea>
+            <textarea name="problem" class="text_input _req"></textarea>
           </div>
-          <div class="message-block" id="message"></div>
+          <div class="message-block"></div>
           <button type="submit">Send!</button>
         </form>
       </main>
@@ -121,16 +85,16 @@
     <script>
       "use strict";
       document.addEventListener("DOMContentLoaded", function () {
-        const form = document.getElementById("form");
+        const form = document.getElementsByTagName("FORM");
         let formReq = document.querySelectorAll("._req");
-        form.addEventListener("submit", formSend);
+        form[0].addEventListener("submit", formSend);
         async function formSend(e) {
           e.preventDefault();
-          let message = document.getElementById("message");
-          message.classList.add("_info");
-          let error = formValidate(form);
+          let message = document.getElementsByClassName("message-block");
+          message[0].classList.add("_info");
+          let error = formValidate(form[0]);
           let formData = {};
-          Array.from(form.elements)
+          Array.from(form[0].elements)
             .filter(
               (el) =>
                 el.tagName !== "BUTTON" &&
@@ -138,7 +102,7 @@
             )
             .forEach((element) => (formData[element.name] = element.value));
           if (error === 0) {
-            form.classList.add("_sending");
+            form[0].classList.add("_sending");
             let response = await fetch("api/sendmail", {
               method: "POST",
               headers: {
@@ -148,18 +112,18 @@
             });
             if (response.ok) {
               let result = await response.json();
-              message.innerText = "Form has been send!";
-              form.reset();
+              message[0].innerText = "Form has been send!";
+              form[0].reset();
             } else if (response.status === 429) {
-              message.innerText = "Too many requests!";
+              message[0].innerText = "Too many requests!";
             } else if (response.status === 420) {
-              message.innerText = "Data didnt pass!";
+              message[0].innerText = "Data didnt pass!";
             } else {
-              message.innerText = "Sending   error!";
+              message[0].innerText = "Sending   error!";
             }
-            form.classList.remove("_sending");
+            form[0].classList.remove("_sending");
           } else {
-            message.innerText = "Required fields are empty!";
+            message[0].innerText = "Required fields are empty!";
           }
         }
         function formValidate(e) {
