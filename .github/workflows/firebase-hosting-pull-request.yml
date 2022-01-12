@@ -14,4 +14,4 @@ jobs:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_SLIDER4_LAB }}"
           projectId: slider4-lab
-          entrypoint: ./3lab
+          entryPoint: ./3lab
