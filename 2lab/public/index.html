@@ -12,7 +12,7 @@
         <h1>Form sender</h1>
       </header>
       <main>
-        <form>
+        <form id="form">
           <div class="form-block">
             <label for="form-name">Name:</label>
             <input type="text" name="name" class="form_input _req" />
@@ -85,43 +85,46 @@
     <script>
       "use strict";
       document.addEventListener("DOMContentLoaded", function () {
-        const form = document.getElementsByTagName("FORM");
+        const form = document.getElementById("form");
         let formReq = document.querySelectorAll("._req");
-        form[0].addEventListener("submit", formSend);
+        form.addEventListener("submit", formSend);
         async function formSend(e) {
           e.preventDefault();
           let message = document.getElementsByClassName("message-block");
           message[0].classList.add("_info");
-          let error = formValidate(form[0]);
+          let error = formValidate(form);
           let formData = {};
-          Array.from(form[0].elements)
+          Array.from(form.elements)
             .filter(
               (el) =>
                 el.tagName !== "BUTTON" &&
                 !(el.type === "radio" && el.checked === false)
             )
             .forEach((element) => (formData[element.name] = element.value));
-          if (error === 0) {
-            form[0].classList.add("_sending");
-            let response = await fetch("api/sendmail", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(formData),
-            });
-            if (response.ok) {
-              let result = await response.json();
-              message[0].innerText = "Form has been send!";
-              form[0].reset();
-            } else if (response.status === 429) {
-              message[0].innerText = "Too many requests!";
-            } else if (response.status === 420) {
-              message[0].innerText = "Data didnt pass!";
-            } else {
-              message[0].innerText = "Sending   error!";
-            }
-            form[0].classList.remove("_sending");
+          if (!error) {
+            form.classList.add("_sending");
+              let response = await fetch("api/sendmail", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+              }).then(response => {
+                if (response.ok) {
+                  let result = response.json();
+                  message[0].innerText = "Form has been send!";
+                  form.reset();
+                } else if (response.status === 429) {
+                  message[0].innerText = "Too many requests!";
+                } else if (response.status === 420) {
+                  message[0].innerText = "Data didnt pass!";
+                } else {
+                  message[0].innerText = "Sending   error!";
+                }
+              }).catch(() => {
+                message[0].innerText = "Something went wrong!";
+              })
+            form.classList.remove("_sending");
           } else {
             message[0].innerText = "Required fields are empty!";
           }
@@ -137,7 +140,7 @@
                 formAddError(input);
                 error++;
               }
-            } else if (input.value === "") {
+            } else if (!input.value) {
               formAddError(input);
               error++;
             }
