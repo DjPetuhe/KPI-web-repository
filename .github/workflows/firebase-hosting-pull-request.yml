@@ -15,3 +15,4 @@ jobs:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_FORM_2LAB }}"
           projectId: form-2lab
+          entryPoint: ./2lab

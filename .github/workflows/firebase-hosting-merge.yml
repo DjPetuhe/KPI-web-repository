@@ -18,3 +18,4 @@ jobs:
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_FORM_2LAB }}"
           channelId: live
           projectId: form-2lab
+          entryPoint: ./2lab
